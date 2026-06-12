@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "375918d0-5af6-4a9a-ada7-36f98eb6bcd3",
+		"name": "Unstructured Webhooks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Workspace-scoped channels",
+			"item": [
+				{
+					"name": "Create a webhook channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the settings for the workspace webhook notification channel here.\n  // See https://docs.unstructured.io/api-reference/webhooks\n  // API reference: https://docs.unstructured.io/api-reference/api/notification/create-notification-channel\n  \"channel_type\": \"webhook\",\n  \"url\": \"https://hooks.example.com/notify\",\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"description\": \"Workspace job status alerts\",\n  \"secret\": \"<signing-secret-24-to-75-chars>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels"
+							]
+						},
+						"description": "Create a workspace-scoped webhook notification channel that delivers job event payloads to the specified HTTPS URL. The response includes the channel ID. See https://docs.unstructured.io/api-reference/webhooks"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a webhook channel",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Get a workspace-scoped webhook notification channel by ID. See https://docs.unstructured.io/api-reference/api/notification/get-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a webhook channel",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the fields to update for the workspace webhook notification channel here.\n  // See https://docs.unstructured.io/api-reference/webhooks\n  // API reference: https://docs.unstructured.io/api-reference/api/notification/update-notification-channel\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"url\": \"https://hooks.example.com/notify\",\n  \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Update a workspace-scoped webhook notification channel; only provided fields are changed. To rotate the signing secret, include the new value in the `secret` field. See https://docs.unstructured.io/api-reference/api/notification/update-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a webhook channel",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Permanently delete a workspace-scoped webhook notification channel. This action is not recoverable. See https://docs.unstructured.io/api-reference/api/notification/delete-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "List webhook channels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels?channel_type=webhook",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels"
+							],
+							"query": [
+								{
+									"key": "channel_type",
+									"value": "webhook"
+								}
+							]
+						},
+						"description": "List all workspace-scoped webhook notification channels. See https://docs.unstructured.io/api-reference/api/notification/list-notification-channels"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workflow-scoped channels",
+			"item": [
+				{
+					"name": "Create a workflow webhook channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the settings for the workflow webhook notification channel here.\n  // See https://docs.unstructured.io/api-reference/webhooks\n  // API reference: https://docs.unstructured.io/api-reference/api/workflow/create-workflow-notification-channel\n  \"channel_type\": \"webhook\",\n  \"url\": \"https://hooks.example.com/notify\",\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"description\": \"Workflow job status alerts\",\n  \"secret\": \"<signing-secret-24-to-75-chars>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels"
+							]
+						},
+						"description": "Create a webhook notification channel scoped to a single workflow that delivers job event payloads to the specified HTTPS URL. The response includes the channel ID. See https://docs.unstructured.io/api-reference/webhooks"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a workflow webhook channel",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Get a workflow-scoped webhook notification channel by ID. See https://docs.unstructured.io/api-reference/api/workflow/get-workflow-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a workflow webhook channel",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the fields to update for the workflow webhook notification channel here.\n  // See https://docs.unstructured.io/api-reference/webhooks\n  // API reference: https://docs.unstructured.io/api-reference/api/workflow/update-workflow-notification-channel\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"url\": \"https://hooks.example.com/notify\",\n  \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Update a workflow-scoped webhook notification channel; only provided fields are changed. To rotate the signing secret, include the new value in the `secret` field. See https://docs.unstructured.io/api-reference/api/workflow/update-workflow-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a workflow webhook channel",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Permanently delete a workflow-scoped webhook notification channel. This action is not recoverable. See https://docs.unstructured.io/api-reference/api/workflow/delete-workflow-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "List workflow webhook channels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels?channel_type=webhook",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels"
+							],
+							"query": [
+								{
+									"key": "channel_type",
+									"value": "webhook"
+								}
+							]
+						},
+						"description": "List all webhook notification channels scoped to the specified workflow. See https://docs.unstructured.io/api-reference/api/workflow/list-workflow-notification-channels"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Get a notification",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/<notification-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"<notification-id>"
+							]
+						},
+						"description": "Get a single webhook notification event by ID. See https://docs.unstructured.io/api-reference/api/notification/get-notification"
+					},
+					"response": []
+				},
+				{
+					"name": "Get unread notification count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/unread-count",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"unread-count"
+							]
+						},
+						"description": "Get the count of unread notification events for the current user. See https://docs.unstructured.io/api-reference/api/notification/get-notifications-unread-count"
+					},
+					"response": []
+				},
+				{
+					"name": "Mark notifications read",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify exactly one of: notification_ids, before, or mark_all.\n  // See https://docs.unstructured.io/api-reference/webhooks\n  // API reference: https://docs.unstructured.io/api-reference/api/notification/mark-notifications-read\n  \"notification_ids\": [\"<uuid>\", \"<uuid>\"]\n  // \"before\": \"<YYYY-MM-DDTHH:MM:SSZ>\"\n  // \"mark_all\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/mark-read",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"mark-read"
+							]
+						},
+						"description": "Mark one or more notification events as read for the current user. Provide exactly one of `notification_ids`, `before`, or `mark_all`. See https://docs.unstructured.io/api-reference/api/notification/mark-notifications-read"
+					},
+					"response": []
+				},
+				{
+					"name": "List notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications?limit=50&unread_only=false",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "unread_only",
+									"value": "false"
+								}
+							]
+						},
+						"description": "List notification events for the current user, ordered by creation date with cursor-based pagination. See https://docs.unstructured.io/api-reference/api/notification/list-notifications"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
