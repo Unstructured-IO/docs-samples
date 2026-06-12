@@ -109,7 +109,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // Specify the settings for the source connector here.\n    // See https://docs.unstructured.io/api-reference/workflow/sources/overview\n    // For example:\n    \"name\": \"<name>\",\n    \"type\": \"<type>\",\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
+							"raw": "{\n    // Specify the settings for the source connector here.\n    // See https://docs.unstructured.io/api-reference/workflow/sources/overview\n    // API reference: https://docs.unstructured.io/api-reference/api/source/create-source\n    // For example:\n    \"name\": \"<name>\",\n    \"type\": \"<type>\",\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -151,7 +151,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // Specify the updated settings for the source connector here.\n    // Note that the \"name\" and \"type\" settings cannot be updated after the source connector is intially created.\n    // See https://docs.unstructured.io/api-reference/workflow/sources/overview\n    // For example:\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
+							"raw": "{\n    // Specify the updated settings for the source connector here.\n    // Note that the \"name\" and \"type\" settings cannot be updated after the source connector is intially created.\n    // See https://docs.unstructured.io/api-reference/workflow/sources/overview\n    // API reference: https://docs.unstructured.io/api-reference/api/source/update-source\n    // For example:\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,7 +326,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // Specify the settings for the destination connector here.\n    // See https://docs.unstructured.io/api-reference/workflow/destinations/overview\n    // For example:\n    \"name\": \"<name>\",\n    \"type\": \"<type>\",\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
+							"raw": "{\n    // Specify the settings for the destination connector here.\n    // See https://docs.unstructured.io/api-reference/workflow/destinations/overview\n    // API reference: https://docs.unstructured.io/api-reference/api/destination/create-destination\n    // For example:\n    \"name\": \"<name>\",\n    \"type\": \"<type>\",\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -368,7 +368,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // Specify the updated settings for the destination connector here.\n    // Note that the \"name\" and \"type\" settings cannot be updated after the destination connector is intially created.\n    // See https://docs.unstructured.io/api-reference/workflow/destinations/overview\n    // For example:\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
+							"raw": "{\n    // Specify the updated settings for the destination connector here.\n    // Note that the \"name\" and \"type\" settings cannot be updated after the destination connector is intially created.\n    // See https://docs.unstructured.io/api-reference/workflow/destinations/overview\n    // API reference: https://docs.unstructured.io/api-reference/api/destination/update-destination\n    // For example:\n    \"config\": {\n        \"<key>\": \"<value>\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -549,7 +549,7 @@
 								}
 							]
 						},
-						"description": "For a list of available strings for `status`, such as `active` and `inactive`, see [https://docs.unstructured.io/api-reference/workflow/overview#list-workflows](https://docs.unstructured.io/api-reference/workflow/overview#list-workflowsFor)"
+						"description": "For a list of available strings for `status`, such as `active` and `inactive`, see [https://docs.unstructured.io/api-reference/workflow/overview](https://docs.unstructured.io/api-reference/workflow/overviewFor)"
 					},
 					"response": []
 				},
@@ -603,7 +603,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // Specify the settings for the workflow here.\n    // See https://docs.unstructured.io/api-reference/workflow/workflows#create-a-workflow\n    // For example:\n    \"name\": \"<name>\",\n    \"source_id\": \"<source-connector-id>\", // To use a local source, omit \"source_id\".\n    \"destination_id\": \"<destination-connector-id>\", // To use a local destination, omit \"destination_id\".\n    \"workflow_type\": \"<type>\", // To use a workflow template: \"template\". To specify nodes manually: \"custom\".\n    \"template_id\": \"<workflow-template-id>\", // To specify nodes manually, omit \"template_id\". To use a workflow template, omit \"workflow_nodes\".\n    \"workflow_nodes\": [\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        },\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        }\n        // And so on for additional workflow DAG nodes.\n    ],\n    \"schedule\": \"<schedule-timeframe>\"\n}\n\n\n\n\n\n\n\n",
+							"raw": "{\n    // Specify the settings for the workflow here.\n    // See https://docs.unstructured.io/api-reference/workflow/workflows\n    // API reference: https://docs.unstructured.io/api-reference/api/workflow/create-workflow\n    // For example:\n    \"name\": \"<name>\",\n    \"source_id\": \"<source-connector-id>\", // To use a local source, omit \"source_id\".\n    \"destination_id\": \"<destination-connector-id>\", // To use a local destination, omit \"destination_id\".\n    \"workflow_type\": \"<type>\", // To use a workflow template: \"template\". To specify nodes manually: \"custom\".\n    \"template_id\": \"<workflow-template-id>\", // To specify nodes manually, omit \"template_id\". To use a workflow template, omit \"workflow_nodes\".\n    \"workflow_nodes\": [\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        },\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        }\n        // And so on for additional workflow DAG nodes.\n    ],\n    \"schedule\": \"<schedule-timeframe>\"\n}\n\n\n\n\n\n\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -648,7 +648,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // Specify the updated settings for the workflow here.\n    // See https://docs.unstructured.io/api-reference/workflow/workflows#create-a-workflow\n    // For example:\n    \"name\": \"<name>\",\n    \"source_id\": \"<source-connector-id>\", // To use a local source, omit \"source_id\".\n    \"destination_id\": \"<destination-connector-id>\", // To use a local destination, omit \"destination_id\".\n    \"workflow_type\": \"<type>\",\n    \"workflow_nodes\": [\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        },\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        }\n        // And so on for additional workflow DAG nodes.\n    ],\n    \"schedule\": \"<schedule-timeframe>\"\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+							"raw": "{\n    // Specify the updated settings for the workflow here.\n    // See https://docs.unstructured.io/api-reference/workflow/workflows\n    // API reference: https://docs.unstructured.io/api-reference/api/workflow/update-workflow\n    // For example:\n    \"name\": \"<name>\",\n    \"source_id\": \"<source-connector-id>\", // To use a local source, omit \"source_id\".\n    \"destination_id\": \"<destination-connector-id>\", // To use a local destination, omit \"destination_id\".\n    \"workflow_type\": \"<type>\",\n    \"workflow_nodes\": [\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        },\n        {\n            \"name\": \"<node-name>\",\n            \"type\": \"<node-type>\",\n            \"subtype\": \"<node-subtype>\",\n            \"settings\": {\n                \"<key>\": \"<value>\"\n            }\n        }\n        // And so on for additional workflow DAG nodes.\n    ],\n    \"schedule\": \"<schedule-timeframe>\"\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -772,7 +772,7 @@
 								"run"
 							]
 						},
-						"description": "To run the worfklow for multiple files, add an additional `input_files`, `filename`, and `type` entry for each additional file.\n\nSee also [https://docs.unstructured.io/api-reference/workflow/overview#run-a-workflow](https://docs.unstructured.io/api-reference/workflow/overview#run-a-workflow)"
+						"description": "To run the worfklow for multiple files, add an additional `input_files`, `filename`, and `type` entry for each additional file.\n\nSee also [https://docs.unstructured.io/api-reference/workflow/overview](https://docs.unstructured.io/api-reference/workflow/overview)"
 					},
 					"response": []
 				},
@@ -961,7 +961,7 @@
 								}
 							]
 						},
-						"description": "To get the values for `file_id` and `node_id`, run the \"GET Get a Job\" request.\n\nSee also [https://docs.unstructured.io/api-reference/workflow/overview#download-a-processed-local-file-from-a-job](https://docs.unstructured.io/api-reference/workflow/overview#download-a-processed-local-file-from-a-job)"
+						"description": "To get the values for `file_id` and `node_id`, run the \"GET Get a Job\" request.\n\nSee also [https://docs.unstructured.io/api-reference/workflow/overview](https://docs.unstructured.io/api-reference/workflow/overview)"
 					},
 					"response": []
 				},
