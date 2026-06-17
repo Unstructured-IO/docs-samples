@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "0a713949-7f22-4dd0-ba10-11ad89308c91",
+		"name": "Unstructured Email Notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Workspace-scoped channels",
+			"item": [
+				{
+					"name": "1.  Create an email channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the settings for the workspace email notification channel here.\n  // See https://docs.unstructured.io/api-reference/email\n  // API reference: https://docs.unstructured.io/api-reference/api/notification/create-notification-channel\n  \"channel_type\": \"email\",\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"description\": \"Workspace level job events\",\n  \"email_config\": {\n    \"recipient_email\": \"donotreply@example.com\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels"
+							]
+						},
+						"description": "Create a workspace-scoped email notification channel that sends emails when the specified job events occur across all workflows in the workspace. The response includes the channel ID needed to verify the channel. See https://docs.unstructured.io/api-reference/email"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Verify an email channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Enter the 6-digit verification code sent to the recipient email address.\n  // See https://docs.unstructured.io/api-reference/email#verify-the-email-channel\n  // API reference: https://docs.unstructured.io/api-reference/api/notification/verify-notification-channel\n  \"verification_code\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>/verify",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>",
+								"verify"
+							]
+						},
+						"description": "Verify a workspace-scoped email channel using the 6-digit code sent to the recipient address at channel creation. A 204 No Content response indicates the channel is now active. See https://docs.unstructured.io/api-reference/email#verify-the-email-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Get an email channel",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Get a workspace-scoped notification channel by ID. See https://docs.unstructured.io/api-reference/api/notification/get-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Update an email channel",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the fields to update for the workspace email notification channel here.\n  // See https://docs.unstructured.io/api-reference/email\n  // API reference: https://docs.unstructured.io/api-reference/api/notification/update-notification-channel\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"email_config\": {\n    \"recipient_email\": \"donotreply@example.com\"\n  },\n  \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Update a workspace-scoped email notification channel; only provided fields are changed. The channel must be verified before it can be updated. See https://docs.unstructured.io/api-reference/api/notification/update-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an email channel",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Permanently delete a workspace-scoped notification channel. This action is not recoverable. See https://docs.unstructured.io/api-reference/api/notification/delete-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "List email channels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/notifications/channels?channel_type=email",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"channels"
+							],
+							"query": [
+								{
+									"key": "channel_type",
+									"value": "email"
+								}
+							]
+						},
+						"description": "List all workspace-scoped email notification channels. See https://docs.unstructured.io/api-reference/api/notification/list-notification-channels"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workflow-scoped channels",
+			"item": [
+				{
+					"name": "1.  Create a workflow email channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the settings for the workflow email notification channel here.\n  // See https://docs.unstructured.io/api-reference/email\n  // API reference: https://docs.unstructured.io/api-reference/api/workflow/create-workflow-notification-channel\n  \"channel_type\": \"email\",\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"description\": \"Workflow-specific status alerts\",\n  \"email_config\": {\n    \"recipient_email\": \"donotreply@example.com\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels"
+							]
+						},
+						"description": "Create an email notification channel scoped to a single workflow that sends emails when the specified job events occur for that workflow's jobs. The response includes the channel ID needed to verify the channel. See https://docs.unstructured.io/api-reference/email"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Verify a workflow email channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Enter the 6-digit verification code sent to the recipient email address.\n  // See https://docs.unstructured.io/api-reference/email#verify-the-email-channel\n  // API reference: https://docs.unstructured.io/api-reference/api/workflow/verify-workflow-notification-channel\n  \"verification_code\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>/verify",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>",
+								"verify"
+							]
+						},
+						"description": "Verify a workflow-scoped email channel using the 6-digit code sent to the recipient address at channel creation. A 204 No Content response indicates the channel is now active. See https://docs.unstructured.io/api-reference/email#verify-the-email-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a workflow email channel",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Get a workflow-scoped notification channel by ID. See https://docs.unstructured.io/api-reference/api/workflow/get-workflow-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a workflow email channel",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // Specify the fields to update for the workflow email notification channel here.\n  // See https://docs.unstructured.io/api-reference/email\n  // API reference: https://docs.unstructured.io/api-reference/api/workflow/update-workflow-notification-channel\n  \"event_types\": [\"job.scheduled\", \"job.in_progress\", \"job.completed\", \"job.stopped\", \"job.failed\"],\n  \"email_config\": {\n    \"recipient_email\": \"donotreply@example.com\"\n  },\n  \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Update a workflow-scoped email notification channel; only provided fields are changed. The channel must be verified before it can be updated. See https://docs.unstructured.io/api-reference/api/workflow/update-workflow-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a workflow email channel",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels/<channel-id>",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels",
+								"<channel-id>"
+							]
+						},
+						"description": "Permanently delete a workflow-scoped notification channel. This action is not recoverable. See https://docs.unstructured.io/api-reference/api/workflow/delete-workflow-notification-channel"
+					},
+					"response": []
+				},
+				{
+					"name": "List workflow email channels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "unstructured-api-key",
+								"value": "{{UNSTRUCTURED_API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{UNSTRUCTURED_API_URL}}/workflows/<workflow-id>/notifications/channels?channel_type=email",
+							"host": [
+								"{{UNSTRUCTURED_API_URL}}"
+							],
+							"path": [
+								"workflows",
+								"<workflow-id>",
+								"notifications",
+								"channels"
+							],
+							"query": [
+								{
+									"key": "channel_type",
+									"value": "email"
+								}
+							]
+						},
+						"description": "List all email notification channels scoped to the specified workflow. See https://docs.unstructured.io/api-reference/api/workflow/list-workflow-notification-channels"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
