@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "0a713949-7f22-4dd0-ba10-11ad89308c91",
-		"name": "Unstructured Email Notifications",
+		"name": "Unstructured REST API - Email Notifications",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [

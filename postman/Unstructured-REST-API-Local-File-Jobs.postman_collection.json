@@ -1,13 +1,13 @@
 {
 	"info": {
 		"_postman_id": "600b293c-57b2-4d84-8bcf-e6353f0e7a12",
-		"name": "Unstructured REST API - On-Demand Jobs",
+		"name": "Unstructured REST API - Local-File Processing Jobs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38317384"
 	},
 	"item": [
 		{
-			"name": "1. Run an On-Demand Job",
+			"name": "1. Run a Job on Local Files",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -46,7 +46,7 @@
 			"response": []
 		},
 		{
-			"name": "2. Get On-Demand Job Status",
+			"name": "2. Get Job Status",
 			"request": {
 				"method": "GET",
 				"header": [
