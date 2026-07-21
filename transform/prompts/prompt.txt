@@ -1,0 +1,31 @@
+Use the Unstructured Transform MCP server to parse the files in this project. 
+Use the following settings:
+
+* JSON output
+* High Res partitioning
+* Add these enrichments: table description, table to HTML
+* Chunk by title
+* Embed the chunks
+
+Treat each purchase order as its own file, for output purposes. Put the output 
+that Transform produces into this project's output/ folder. 
+
+Use the JSON output to do the following:
+
+* Send the output to a report creation agent. Have this agent create a 
+  downloadable report, in PDF format, for the ACME Corp shipping supervisor. 
+  In this report, list the various shippers that are needed to deliver the 
+  ordered supplies. For each shipper, propose a route of cities to deliver to, 
+  from closest to ACME Corp to farthest away. Put the report into this 
+  project's reports/ folder.
+* Send the same output to an accounting agent. Have this agent create a 
+  downloadable report, in PDF format, for the ACME Corp accounting supervisor. 
+  In this report, list any accounting anomalies that the agent finds. Describe 
+  where each anomaly is, why it is considered an anomaly, and suggest any 
+  corrective actions. Put the report into this project's reports/ folder.
+* Send the same output to a vector store operator agent. Have this agent insert 
+  the JSON files' child objects into a local LanceDB vector store, at 
+  /Users/<username>/examples/lancedb/data/lancedb/. Use the table name acme_corp. 
+  If the table doesn't exist, create it first.
+
+As the original agent, after you are done, summarize what you did.
