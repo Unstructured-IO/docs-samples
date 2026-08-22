@@ -43,82 +43,86 @@ for filename in os.listdir(INPUT_DIR):
         )
     )
 
-response = client.jobs.create_job(
-    request=CreateJobRequest(
-        body_create_job=BodyCreateJob(
-            request_data=json.dumps({
-                "job_nodes": [
-                    {
-                        "name": "Partitioner",
-                        "type": "partition",
-                        "subtype": "vlm",
-                        "settings": {
-                            "is_dynamic": True,
-                            "allow_fast": True
-                        }
-                    },
-                    {
-                        "name": "Extractor",
-                        "type": "structured_data_extractor",
-                        "subtype": "llm",
-                        "settings": {
-                            "schema_to_extract": {
-                                "json_schema": json.dumps({
-                                    "type": "object",
-                                    "properties": {
-                                        "patient_name": { "type": "string" },
-                                        "preferred_name": { "type": "string" },
-                                        "date_of_birth": { "type": "string" },
-                                        "phone_number": { "type": "string" },
-                                        "address": { "type": "string" },
-                                        "emergency_contact_name": { "type": "string" },
-                                        "emergency_contact_relationship": { "type": "string" },
-                                        "emergency_contact_phone": { "type": "string" },
-                                        "insurance_provider": { "type": "string" },
-                                        "reason_for_visit": { "type": "string" },
-                                        "current_medications": {
-                                            "type": "array",
-                                            "items": { "type": "string" }
+try:
+    response = client.jobs.create_job(
+        request=CreateJobRequest(
+            body_create_job=BodyCreateJob(
+                request_data=json.dumps({
+                    "job_nodes": [
+                        {
+                            "name": "Partitioner",
+                            "type": "partition",
+                            "subtype": "vlm",
+                            "settings": {
+                                "is_dynamic": True,
+                                "allow_fast": True
+                            }
+                        },
+                        {
+                            "name": "Extractor",
+                            "type": "structured_data_extractor",
+                            "subtype": "llm",
+                            "settings": {
+                                "schema_to_extract": {
+                                    "json_schema": json.dumps({
+                                        "type": "object",
+                                        "properties": {
+                                            "patient_name": { "type": "string" },
+                                            "preferred_name": { "type": "string" },
+                                            "date_of_birth": { "type": "string" },
+                                            "phone_number": { "type": "string" },
+                                            "address": { "type": "string" },
+                                            "emergency_contact_name": { "type": "string" },
+                                            "emergency_contact_relationship": { "type": "string" },
+                                            "emergency_contact_phone": { "type": "string" },
+                                            "insurance_provider": { "type": "string" },
+                                            "reason_for_visit": { "type": "string" },
+                                            "current_medications": {
+                                                "type": "array",
+                                                "items": { "type": "string" }
+                                            },
+                                            "allergies": { "type": "string" },
+                                            "chronic_conditions": { "type": "string" },
+                                            "tobacco_use": { "type": "string" },
+                                            "alcohol_use": { "type": "string" },
+                                            "exercise_frequency": { "type": "string" }
                                         },
-                                        "allergies": { "type": "string" },
-                                        "chronic_conditions": { "type": "string" },
-                                        "tobacco_use": { "type": "string" },
-                                        "alcohol_use": { "type": "string" },
-                                        "exercise_frequency": { "type": "string" }
-                                    },
-                                    "additionalProperties": False,
-                                    "required": [
-                                        "patient_name",
-                                        "preferred_name",
-                                        "date_of_birth",
-                                        "phone_number",
-                                        "address",
-                                        "emergency_contact_name",
-                                        "emergency_contact_relationship",
-                                        "emergency_contact_phone",
-                                        "insurance_provider",
-                                        "reason_for_visit",
-                                        "current_medications",
-                                        "allergies",
-                                        "chronic_conditions",
-                                        "tobacco_use",
-                                        "alcohol_use",
-                                        "exercise_frequency"
-                                    ]
-                                }),
-                                "extraction_guidance": EXTRACTION_PROMPT
-                            },
-                            "provider": "openai",
-                            "model": "gpt-5-mini",
-                            "output_mode": "extracted_data_only"
+                                        "additionalProperties": False,
+                                        "required": [
+                                            "patient_name",
+                                            "preferred_name",
+                                            "date_of_birth",
+                                            "phone_number",
+                                            "address",
+                                            "emergency_contact_name",
+                                            "emergency_contact_relationship",
+                                            "emergency_contact_phone",
+                                            "insurance_provider",
+                                            "reason_for_visit",
+                                            "current_medications",
+                                            "allergies",
+                                            "chronic_conditions",
+                                            "tobacco_use",
+                                            "alcohol_use",
+                                            "exercise_frequency"
+                                        ]
+                                    }),
+                                    "extraction_guidance": EXTRACTION_PROMPT
+                                },
+                                "provider": "openai",
+                                "model": "gpt-5-mini",
+                                "output_mode": "extracted_data_only"
+                            }
                         }
-                    }
-                ]
-            }),
-            input_files=input_files
+                    ]
+                }),
+                input_files=input_files
+            )
         )
     )
-)
+finally:
+    for input_file in input_files:
+        input_file.content.close()
 
 job_id = response.job_information.id
 print(f"Job ID: {job_id}")

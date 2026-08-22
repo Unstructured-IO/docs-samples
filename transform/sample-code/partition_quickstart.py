@@ -38,26 +38,30 @@ for filename in os.listdir(INPUT_DIR):
         )
     )
 
-response = client.jobs.create_job(
-    request=CreateJobRequest(
-        body_create_job=BodyCreateJob(
-            request_data=json.dumps({
-                "job_nodes": [
-                    {
-                        "name": "Partitioner",
-                        "type": "partition",
-                        "subtype": "vlm",
-                        "settings": {
-                            "is_dynamic": True,
-                            "allow_fast": True
+try:
+    response = client.jobs.create_job(
+        request=CreateJobRequest(
+            body_create_job=BodyCreateJob(
+                request_data=json.dumps({
+                    "job_nodes": [
+                        {
+                            "name": "Partitioner",
+                            "type": "partition",
+                            "subtype": "vlm",
+                            "settings": {
+                                "is_dynamic": True,
+                                "allow_fast": True
+                            }
                         }
-                    }
-                ]
-            }),
-            input_files=input_files
+                    ]
+                }),
+                input_files=input_files
+            )
         )
     )
-)
+finally:
+    for input_file in input_files:
+        input_file.content.close()
 
 job_id = response.job_information.id
 print(f"Job ID: {job_id}")
