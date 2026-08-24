@@ -7,20 +7,6 @@ from unstructured_client import UnstructuredClient
 from unstructured_client.models.operations import CreateJobRequest, DownloadJobOutputRequest
 from unstructured_client.models.shared import BodyCreateJob, InputFiles
 
-
-# Set the variables BELOW THIS VALIDATION FUNCTION before running this script.
-def validate_inputs(api_key, input_dir, output_dir):
-    # Checks that the settings below have been changed from their placeholder values.
-    # Be sure to EDIT THE VARIABLE SETTINGS BELOW THIS BLOCK,
-    # and NOT THE STRINGS HERE that we validate against.
-    if api_key in ("YOUR_API_KEY_HERE", ""):  # <-- DO NOT UPDATE
-        raise SystemExit("Set API_KEY to your Unstructured API key before running this script.")
-    if input_dir in ("/full/path/to/your/input/directory", ""):  # <-- DO NOT UPDATE
-        raise SystemExit("Set INPUT_DIR to the local directory containing the file (or files) you want to process before running this script.")
-    if output_dir in ("/full/path/to/your/output/directory", ""):  # <-- DO NOT UPDATE
-        raise SystemExit("Set OUTPUT_DIR to the local directory where you want the results saved before running this script.")
-
-
 # ----------------------------------------------------------------------------------
 # SET THE VARIABLES BELOW as they apply to you.
 # ----------------------------------------------------------------------------------
@@ -29,8 +15,6 @@ def validate_inputs(api_key, input_dir, output_dir):
 # you've added your real key, don't share this file or check it into any
 # repositories.
 API_KEY = "YOUR_API_KEY_HERE"
-# API_URL is already preset for you.  Do not change the value.
-API_URL = "https://platform-api.transform.unstructured.io/api/v1"
 # The local directory containing the file (or files) you want to process.
 # This folder should contain only the file(s) you want to process, since the
 # script processes every file it finds here.
@@ -40,6 +24,18 @@ INPUT_DIR = "/full/path/to/your/input/directory"
 # also try to process the JSON files already saved here.
 OUTPUT_DIR = "/full/path/to/your/output/directory"
 # ----------------------------------------------------------------------------------
+
+# Validate the variable settings
+def validate_inputs(api_key, input_dir, output_dir):
+    if api_key in ("YOUR_API_KEY_HERE", ""):
+        raise SystemExit("Set API_KEY to your Unstructured API key before running this script.")
+    if input_dir in ("/full/path/to/your/input/directory", ""):
+        raise SystemExit("Set INPUT_DIR to the local directory containing the file (or files) you want to process before running this script.")
+    if output_dir in ("/full/path/to/your/output/directory", ""):
+        raise SystemExit("Set OUTPUT_DIR to the local directory where you want the results saved before running this script.")
+
+# API_URL is already preset for you.  Do not change the value.
+API_URL = "https://platform-api.transform.unstructured.io/api/v1"
 
 validate_inputs(API_KEY, INPUT_DIR, OUTPUT_DIR)
 
