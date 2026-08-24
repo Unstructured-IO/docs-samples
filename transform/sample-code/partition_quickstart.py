@@ -11,7 +11,9 @@ from unstructured_client.models.shared import BodyCreateJob, InputFiles
 # This isn't best practice outside of local testing on your own machine. Once
 # you've added your real key, don't share this file or check it into any
 # repositories.
-API_KEY = ""
+API_KEY = "YOUR_API_KEY_HERE"
+if API_KEY in ("YOUR_API_KEY_HERE", ""):
+    raise SystemExit("Set API_KEY to your Unstructured API key before running this script.")
 API_URL = "https://platform-api.transform.unstructured.io"
 # The local directory containing the file (or files) you want to process.
 INPUT_DIR = "/full/path/to/your/input/directory"
