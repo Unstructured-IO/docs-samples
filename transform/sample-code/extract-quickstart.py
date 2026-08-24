@@ -7,10 +7,26 @@ from unstructured_client import UnstructuredClient
 from unstructured_client.models.operations import CreateJobRequest, DownloadJobOutputRequest
 from unstructured_client.models.shared import BodyCreateJob, InputFiles
 
+# ----------------------------------------------------------------------------------
+# SET THE VARIABLES BELOW as they apply to you.
+# ----------------------------------------------------------------------------------
+# API_KEY is included here as a local variable for ease of use in this quickstart.
+# This isn't best practice outside of local testing on your own machine. Once
+# you've added your real key, don't share this file or check it into any
+# repositories.
+API_KEY = "YOUR_API_KEY_HERE"
+# The local directory containing the file (or files) you want to process.
+# This folder should contain only the file(s) you want to process, since the
+# script processes every file it finds here.
+INPUT_DIR = "/full/path/to/your/input/directory"
+# The local directory where you want the results saved.
+# Use a different folder than INPUT_DIR, or on a second run the script will
+# also try to process the JSON files already saved here.
+OUTPUT_DIR = "/full/path/to/your/output/directory"
+# ----------------------------------------------------------------------------------
 
-# Set the variables below this validation function before running this script.
+# Validate the variable settings
 def validate_inputs(api_key, input_dir, output_dir):
-    # Checks that the settings below have been changed from their placeholder values.
     if api_key in ("YOUR_API_KEY_HERE", ""):
         raise SystemExit("Set API_KEY to your Unstructured API key before running this script.")
     if input_dir in ("/full/path/to/your/input/directory", ""):
@@ -18,22 +34,15 @@ def validate_inputs(api_key, input_dir, output_dir):
     if output_dir in ("/full/path/to/your/output/directory", ""):
         raise SystemExit("Set OUTPUT_DIR to the local directory where you want the results saved before running this script.")
 
-
-# API_KEY is included here as a local variable for ease of use in this quickstart.
-# This isn't best practice outside of local testing on your own machine. Once
-# you've added your real key, don't share this file or check it into any
-# repositories.
-API_KEY = "YOUR_API_KEY_HERE"
+# API_URL is already preset for you.  Do not change the value.
 API_URL = "https://platform-api.transform.unstructured.io/api/v1"
-# The local directory containing the file (or files) you want to process.
-INPUT_DIR = "/full/path/to/your/input/directory"
-# The local directory where you want the results saved.
-OUTPUT_DIR = "/full/path/to/your/output/directory"
 
+# EXTRACTION_PROMPT is already preset for you.
 # EXTRACTION_PROMPT tells the LLM how to format, normalize, or present the values your
 # schema already defines. It doesn't describe which fields to extract. The schema
 # further down in this script does that.
 EXTRACTION_PROMPT = "Dates are in MM/DD/YYYY format on the form. Represent them as YYYY-MM-DD. Combine the home address, city, state, and ZIP code fields into a single address string."
+
 
 validate_inputs(API_KEY, INPUT_DIR, OUTPUT_DIR)
 
