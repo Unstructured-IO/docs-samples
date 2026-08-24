@@ -55,8 +55,6 @@ client = UnstructuredClient(
 )
 
 # Step 1: Create the job.
-start_time = time.monotonic()
-start_timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
 input_files = []
 for filename in os.listdir(INPUT_DIR):
     full_path = os.path.join(INPUT_DIR, filename)
@@ -184,12 +182,3 @@ for file_id in output_node_file_ids:
     with open(output_path, "w") as f:
         json.dump(response.any, f, indent=4)
     print(f"Saved: {output_path}")
-
-end_timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-elapsed_seconds = int(time.monotonic() - start_time)
-elapsed_minutes, elapsed_remainder_seconds = divmod(elapsed_seconds, 60)
-
-print("")
-print(f"Start time: {start_timestamp}")
-print(f"End time: {end_timestamp}")
-print(f"Elapsed time: {elapsed_seconds} seconds ({elapsed_minutes}m {elapsed_remainder_seconds}s)")
