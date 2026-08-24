@@ -17,8 +17,12 @@ if API_KEY in ("YOUR_API_KEY_HERE", ""):
 API_URL = "https://platform-api.transform.unstructured.io"
 # The local directory containing the file (or files) you want to process.
 INPUT_DIR = "/full/path/to/your/input/directory"
+if INPUT_DIR in ("/full/path/to/your/input/directory", ""):
+    raise SystemExit("Set INPUT_DIR to the local directory containing the file (or files) you want to process before running this script.")
 # The local directory where you want the results saved.
 OUTPUT_DIR = "/full/path/to/your/output/directory"
+if OUTPUT_DIR in ("/full/path/to/your/output/directory", ""):
+    raise SystemExit("Set OUTPUT_DIR to the local directory where you want the results saved before running this script.")
 
 # EXTRACTION_PROMPT tells the LLM how to format, normalize, or present the values your
 # schema already defines. It doesn't describe which fields to extract. The schema
